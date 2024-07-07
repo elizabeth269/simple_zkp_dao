@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAO Proposals</title>
+    <script>
+        async function createProposal() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            const response = await fetch('/proposals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, description })
+            });
+            
+            if (response.ok) {
+                alert('Proposal created');
+                loadProposals();
+            } else {
+                alert('Failed to create proposal');
+            }
+        }
+
+        async function loadProposals() {
+            const response = await fetch('/proposals');
+            const proposals = await response.json();
+            const list = document.getElementById('proposals');
+            list.innerHTML = '';
+
+            proposals.forEach(proposal => {
+                const li = document.createElement('li');
+                li.textContent = `${proposal.title} - ${proposal.description} (Approved: ${proposal.approved})`;
+                const button = document.createElement('button');
+                button.textContent = 'Approve';
+                button.onclick = async () => {
+                    const approveResponse = await fetch(`/approve/${proposal.id}`, {
+                        method: 'POST'
+                    });
+                    if (approveResponse.ok) {
+                        alert('Proposal approved');
+                        loadProposals();
+                    } else {
+                        alert('Failed to approve proposal');
+                    }
+                };
+                li.appendChild(button);
+                list.appendChild(li);
+            });
+        }
+
+        window.onload = loadProposals;
+    </script>
+</head>
+<body>
+    <h1>DAO Proposals</h1>
+    <div>
+        <input type="text" id="title" placeholder="Title" />
+        <input type="text" id="description" placeholder="Description" />
+        <button onclick="createProposal()">Create Proposal</button>
+    </div>
+    <ul id="proposals"></ul>
+</body>
+</html>

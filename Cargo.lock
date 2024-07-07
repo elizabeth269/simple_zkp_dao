@@ -1047,6 +1047,7 @@ name = "simple_zkp_dao"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "rand 0.8.5",
  "serde",
  "uuid",
  "zkp",
