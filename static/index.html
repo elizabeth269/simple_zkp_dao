@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,11 @@
             const response = await fetch('/proposals', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'applicatiMutex::new(vec![])on/json'
                 },
                 body: JSON.stringify({ title, description })
             });
-            
+
             if (response.ok) {
                 alert('Proposal created');
                 loadProposals();
@@ -55,6 +56,7 @@
         window.onload = loadProposals;
     </script>
 </head>
+
 <body>
     <h1>DAO Proposals</h1>
     <div>
@@ -64,4 +66,5 @@
     </div>
     <ul id="proposals"></ul>
 </body>
+
 </html>
