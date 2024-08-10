@@ -36,7 +36,7 @@ async fn main() -> std::io::Result<()> {
     .bind("127.0.0.1:8080")?
     .run()
     .await
-    println!("ok")
+    // println!("ok")
 }
 
 async fn create_proposal(item: web::Json<Proposal>, data: web::Data<AppState>) -> impl Responder {
