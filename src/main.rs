@@ -49,6 +49,7 @@ async fn create_proposal(item: web::Json<Proposal>, data: web::Data<AppState>) -
     };
     proposals.push(new_proposal.clone());
     HttpResponse::Created().json(new_proposal)
+    println!("ok")
 }
 
 async fn get_proposals(data: web::Data<AppState>) -> impl Responder {
